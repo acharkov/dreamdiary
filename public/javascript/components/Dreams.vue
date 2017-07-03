@@ -1,7 +1,8 @@
 <template>
-<div>
-  <app-dream v-for="dream in dreams" :dream="dream" :key="dream.id"></app-dream>
-</div>
+  <div>
+    <button type="button" class="btn btn-default" @click.prevent="getDreams">Get Dreams</button>
+    <app-dream v-for="dream in dreams" :dream="dream" :key="dream.id"></app-dream>
+  </div>
 </template>
 
 <script>
@@ -16,6 +17,17 @@ export default {
 
   components: {
     appDream: Dream
+  },
+
+  methods: {
+    getDreams: function () {
+      this.$http.get('/api/dreams').then(response => {
+        let dreams = response.body
+        this.$store.commit('SET_DREAMS', dreams)
+      }, response => {
+        console.log("error on /api/dreams");
+      });
+    }
   }
 }
 </script>

@@ -9,7 +9,7 @@ const NUM_OF_DREAMS_TO_SHOW = 3;
 var router = express.Router();
 module.exports = router;
 
-router.post('/api/dream', function (req, res) {
+router.post('/api/dream', auth.authenticate(), function (req, res) {
     users.findOne({ id: req.user.id }, function (err, user) {
         if (!user) {
             //FIXME: send something else instead of 404

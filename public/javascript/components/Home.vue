@@ -12,7 +12,6 @@
       </div>
       <button type="button" class="btn btn-default" @click.prevent="sendNewDream">Save Dream</button>
     </form>
-    <p></p>
     <hr>
   </div>
 </template>

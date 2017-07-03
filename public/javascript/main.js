@@ -15,7 +15,12 @@ const router = new VueRouter({
   routes: routes
 });
 
-auth.updateAuth();
+auth.checkAuth();
+
+Vue.http.interceptors.push((request, next) => {
+  request.headers.set('Authorization', auth.getAuthHeader())
+  next()
+})
 
 new Vue({
   el: '#app',

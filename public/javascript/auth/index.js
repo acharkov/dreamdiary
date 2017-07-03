@@ -1,22 +1,35 @@
-const LOGIN_URL = 'http://localhost:3000/login';
+const LOGIN_URL = 'http://localhost:3000/signin';
 
 export default {
     user: {
         authenticated: false
     },
 
-    login(context, creds, cb) {
-        context.$http.post(LOGIN_URL, creds).then(response => {
-            console.log("login successfull");
-
-            this.user.authenticated = true
-            cb()
-        }).then(err => {
-            context.error = err
-        })
+    setAuthState(authState, token) {
+        if (authState === true) {
+            //signin
+            if (token) {
+                localStorage.setItem('id_token', token)
+            }
+        }
+        else {
+            localStorage.removeItem('id_token')
+        }
+        console.log('user state moved: ' + this.user.authenticated + '->' + authState)
+        this.user.authenticated = authState
     },
 
-    updateAuth() {
-        this.user.authenticated = true
+    checkAuth() {
+        var jwt = localStorage.getItem('id_token')
+        if (jwt) {
+            this.user.authenticated = true
+        }
+        else {
+            this.user.authenticated = false
+        }
+    },
+
+    getAuthHeader() {
+        return localStorage.getItem('id_token')
     }
 }

@@ -12,15 +12,16 @@ var options = {
 
 module.exports = function () {
     var strategy = new Strategy(options, function (jwt_payload, done) {
-        if (jwt_payload.id = undefined) {
+        if (jwt_payload.id === undefined) {
             return done(new Error('No payload'), null);
         }
+        let id = jwt_payload.id
+        console.log('server auth jwt_payload.id: ' + id);
         users.findOne({ id: jwt_payload.id }, function (err, user) {
             if (err) {
                 console.log(err);
                 return done(new Error("Error: " + err), null);
             }
-
             if (!user) {
                 return done(new Error("User not found"), null);
             }

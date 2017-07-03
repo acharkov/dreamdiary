@@ -7,15 +7,13 @@ var uuid = require('uuid')
 var router = express.Router();
 module.exports = router;
 
-router.post("/login", function(req, res) {
+router.post("/signin", function(req, res) {
     if (!req.body.email || !req.body.password) {
         res.sendStatus(401);
     }
 
     var email = req.body.email;
     var password = req.body.password;
-
-    console.log(email, password)
     users.findOne({ email : email }, function (err, user) {
         if (err) {
             console.log(err);
@@ -30,9 +28,8 @@ router.post("/login", function(req, res) {
         var payload = {
             id: user.id
         }
-        console.log(payload)
-
         var token = jwt.encode(payload, cfg.jwtSecret);
+        console.log('user signin: email=' + email + ', id=' + user.id)
         res.json({ token: "JWT " + token })
     });
 });
@@ -57,9 +54,9 @@ router.post("/signup", function (req, res) {
         }
 
         var newUser = {
+            id: uuid.v4(),
             email: email,
             date: new Date(),
-            id: uuid.v4(),
             dreams: []
         };
 
