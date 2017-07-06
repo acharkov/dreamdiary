@@ -11,21 +11,33 @@
 
 <script>
 import Header from './components/Header.vue'
+import auth from './auth'
 
 export default {
+    data() {
+        return {
+            user: auth.user
+        }
+    },
+
     components: {
         appHeader: Header
     },
 
-    // created() {
-    //     this.$http.get('/api/dreams').then(response => {
-    //         let dreams = response.body;
-    //         this.$store.commit('SET_DREAMS');
-    //         console.log('dreams got from server');
-    //     }, response => {
-    //         console.log("error on /api/dreams");
-    //     });
-    //}
+    created() {
+        if (!this.user.authenticated) {
+            console.log('cannot get the dreams for unknown user')
+            return
+        }
+
+        this.$http.get('/api/dreams').then(response => {
+            let dreams = response.body;
+            this.$store.commit('SET_DREAMS', dreams);
+            console.log('dreams got from server');
+        }, response => {
+            console.log("error on /api/dreams");
+        });
+    }
 }
 </script>
 

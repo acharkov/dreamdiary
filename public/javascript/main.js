@@ -17,6 +17,7 @@ const router = new VueRouter({
 
 auth.checkAuth();
 
+//we need to add Authorization header for JWT authetication
 Vue.http.interceptors.push((request, next) => {
   request.headers.set('Authorization', auth.getAuthHeader())
   next()

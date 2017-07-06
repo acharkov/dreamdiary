@@ -13,17 +13,23 @@
       <button type="button" class="btn btn-default" @click.prevent="sendNewDream">Save Dream</button>
     </form>
     <hr>
+    <app-dreams></app-dreams>
   </div>
 </template>
 
 <script>
 import uuid from 'uuid';
+import Dreams from './Dreams.vue'
 
 export default {
   data() {
     return {
       newDreamText: ""
     }
+  },
+
+  components: {
+    appDreams: Dreams
   },
 
   methods: {
