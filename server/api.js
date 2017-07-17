@@ -42,7 +42,6 @@ router.post('/api/dream', auth.authenticate(), function (req, res) {
 });
 
 router.get('/api/dreams', auth.authenticate(), function (req, res) {
-    console.log('Dreams');
     users.findOne({ id: req.user.id }, function (err, user) {
         if (!user) {
             //FIXME: send something else instead of 404
@@ -62,12 +61,12 @@ router.get('/api/topdreams', function (req, res) {
     });
 });
 
-router.get('/api/dream/:id', function (req, res) {
+router.delete('/api/dream/:id', auth.authenticate(), function (req, res) {
     var idToDelete = req.params.id;
-
     users.findOne({ id: req.user.id }, function (err, user) {
         if (!user) {
             //FIXME: send something else instead of 404
+            console.error("delete dream: can't find the user");
             return res.sendStatus(404);
         };
 

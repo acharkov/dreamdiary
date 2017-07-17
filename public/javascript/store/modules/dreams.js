@@ -17,6 +17,15 @@ const mutations = {
     state.dreams.unshift(dream)
   },
 
+  'REMOVE_DREAM' (state, dream) {
+    for (let i = 0; i < state.dreams.length; ++i) {
+      if (state.dreams.id = dream.id) {
+        state.dreams.splice(i, 1);
+        break
+      }
+    }
+  },
+
   'REMOVE_DREAMS' (state) {
     state.dreams = []
   }

@@ -9,10 +9,9 @@
       <div class="form-group">
         <label for="dreamText">Новый Сон:</label>
         <textarea v-model="newDreamText" class="form-control" rows="6" id="dreamText"></textarea>
+        <button type="button" class="btn btn-success" :disabled="!newDreamText"  @click.prevent="sendNewDream">Save Dream</button>
       </div>
-      <button type="button" class="btn btn-default" @click.prevent="sendNewDream">Save Dream</button>
     </form>
-    <hr>
     <app-dreams></app-dreams>
   </div>
 </template>
@@ -27,6 +26,12 @@ export default {
       newDreamText: ""
     }
   },
+ 
+  computed: {
+    savedDreamText () {
+      return this.$store.getters.getDreamText
+    }
+  },
 
   components: {
     appDreams: Dreams
@@ -34,6 +39,9 @@ export default {
 
   methods: {
     sendNewDream: function () {
+      if (!this.newDreamText) {
+        return;
+      }
       let dream = {
         id: uuid.v4(),
         date: new Date().toUTCString(),
@@ -45,12 +53,20 @@ export default {
           this.newDreamText = "";
           this.$store.commit('ADD_NEW_DREAM', dream)
         }, response => {
-          if (response.status === 403) {
+          if (response.status === 401) {
             console.log("Go login");
-            router.push('/login');
+            this.$store.commit('SET_SAVED_DREAM', dream)
+            this.$router.push('/signin')
           }
         });
     },
+  },
+
+  created() {
+    if (this.savedDreamText) {
+      this.newDreamText = this.savedDreamText
+      this.$store.commit('REMOVE_SAVED_DREAM')
+    }
   }
 }
 </script>

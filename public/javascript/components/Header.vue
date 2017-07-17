@@ -44,6 +44,7 @@ export default {
         signout: function () {
             auth.setAuthState(false)
             this.$store.commit('REMOVE_DREAMS')
+            this.$router.push('/')
         }
     }
 }

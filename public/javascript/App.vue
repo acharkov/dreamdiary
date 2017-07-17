@@ -24,6 +24,9 @@ export default {
         appHeader: Header
     },
 
+    methods: {
+    },
+
     created() {
         if (!this.user.authenticated) {
             console.log('cannot get the dreams for unknown user')
