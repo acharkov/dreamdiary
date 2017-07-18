@@ -1,4 +1,5 @@
 <template>
+
   <div class="container">
     <div class="jumbotron">
       <h1>Дневник снов</h1>
@@ -9,7 +10,9 @@
       <div class="form-group">
         <label for="dreamText">Новый Сон:</label>
         <textarea v-model="newDreamText" class="form-control" rows="6" id="dreamText"></textarea>
-        <button type="button" class="btn btn-success" :disabled="!newDreamText"  @click.prevent="sendNewDream">Save Dream</button>
+        <div class="text-right">
+          <button type="button" class="btn btn-success" :disabled="!newDreamText" @click.prevent="sendNewDream">Save Dream</button>
+        </div>
       </div>
     </form>
     <app-dreams></app-dreams>
