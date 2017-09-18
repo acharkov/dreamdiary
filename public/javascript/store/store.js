@@ -3,13 +3,15 @@ import Vuex from 'vuex'
 
 import dreams from './modules/dreams';
 import dream from './modules/dream';
+import user from './modules/user'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
     modules: {
         dreams,
-        dream
+        dream,
+        user
     }
 
 })

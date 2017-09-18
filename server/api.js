@@ -42,6 +42,7 @@ router.post('/api/dream', auth.authenticate(), function (req, res) {
 });
 
 router.get('/api/dreams', auth.authenticate(), function (req, res) {
+    console.log('/api/dreams')
     users.findOne({ id: req.user.id }, function (err, user) {
         if (!user) {
             //FIXME: send something else instead of 404

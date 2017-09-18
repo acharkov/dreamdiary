@@ -12,6 +12,7 @@ var options = {
 
 module.exports = function () {
     var strategy = new Strategy(options, function (jwt_payload, done) {
+        console.log(jwt_payload);
         if (jwt_payload.id === undefined) {
             return done(new Error('No payload'), null);
         }

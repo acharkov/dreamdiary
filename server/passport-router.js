@@ -25,12 +25,12 @@ router.post("/signin", function(req, res) {
             return res.sendStatus(401);
         }
 
-        var payload = {
+        let payload = {
             id: user.id
         }
         var token = jwt.encode(payload, cfg.jwtSecret);
         console.log('user signin: email=' + email + ', id=' + user.id)
-        res.json({ token: "JWT " + token })
+        res.status(200).json({ token: 'JWT ' + token, id: user.id})
     });
 });
 
@@ -60,14 +60,19 @@ router.post("/signup", function (req, res) {
             dreams: []
         };
 
+        let payload = {
+            id: newUser.id
+        }
+        var token = jwt.encode(payload, cfg.jwtSecret);
+
         users.insert(newUser, function (err, docs) {
             if (err) {
-                console.log("error during insert");
+                console.log('error during insert');
                 res.sendStatus(401);
                 return done(null, newUser);
             }
 
-            res.sendStatus(200);
+            res.status(200).json({ token: 'JWT ' + token, id: newUser.id });
         });
     })
 })

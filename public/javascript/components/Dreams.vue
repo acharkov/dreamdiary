@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button v-if="false" type="button" class="btn btn-default" @click.prevent="getDreams">Get Dreams</button>
+    <button type="button" class="btn btn-default" @click.prevent="getDreams">Get Dreams</button>
     <app-dream v-for="dream in dreams" :dream="dream" :key="dream.id"></app-dream>
   </div>
 </template>
