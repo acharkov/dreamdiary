@@ -6,7 +6,7 @@
         <v-card>
           <v-card-text>
             <v-container>
-              <form @submit.prevent="onSignup">
+              <form @submit.prevent="onSignin">
                 <v-layout row>
                   <v-flex xs12>
                     <v-text-field name="email" label="E-mail" id="email" v-model="credentials.email" type="email" required>
@@ -59,7 +59,7 @@ export default {
     }
   },
   methods: {
-    onSignup() {
+    onSignin() {
       this.$store.dispatch('signUserIn', this.credentials)
     }
   }

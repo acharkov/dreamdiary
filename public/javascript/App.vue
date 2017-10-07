@@ -1,7 +1,9 @@
 <template>
 <v-app id="example-2" standalone>
     <v-toolbar fixed class="deep-orange" dark>
-      <v-toolbar-title>Dream Diary</v-toolbar-title>
+      <v-toolbar-title>
+        <router-link to="/" tag="span" style="cursor: pointer">Dream Diary</router-link>
+        </v-toolbar-title>
       <v-spacer></v-spacer>
     <v-toolbar-items class="hidden-xs-only">
       <v-btn flat v-for="item in menuItems" v-bind:key="item.title" :to="item.link">
